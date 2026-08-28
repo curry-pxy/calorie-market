@@ -1,0 +1,21 @@
+.page {
+  padding: 12px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.form-item {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+}

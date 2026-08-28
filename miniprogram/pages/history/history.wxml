@@ -1,0 +1,23 @@
+<view class="page">
+  <view class="seg">
+    <view class="seg-item {{mode === 'cal' ? 'active' : ''}}" data-mode="cal" bindtap="onMode">热量</view>
+    <view class="seg-item {{mode === 'weight' ? 'active' : ''}}" data-mode="weight" bindtap="onMode">体重</view>
+  </view>
+
+  <view class="seg">
+    <view class="seg-item {{period === 'day' ? 'active' : ''}}" data-period="day" bindtap="onPeriod">日K</view>
+    <view class="seg-item {{period === 'week' ? 'active' : ''}}" data-period="week" bindtap="onPeriod">周K</view>
+    <view class="seg-item {{period === 'month' ? 'active' : ''}}" data-period="month" bindtap="onPeriod">月K</view>
+    <view class="seg-item {{period === 'year' ? 'active' : ''}}" data-period="year" bindtap="onPeriod">年K</view>
+  </view>
+
+  <view class="card chart-card">
+    <view class="chart-stats">{{statsText}}</view>
+    <canvas type="2d" id="kline" class="kline" bindtouchstart="onTouch" bindtouchmove="onTouch"></canvas>
+    <view class="legend">
+      <text><text class="dot red"></text>红=盈余/涨</text>
+      <text><text class="dot green"></text>绿=赤字/跌</text>
+      <text><text class="dot yellow"></text>MA5</text>
+    </view>
+  </view>
+</view>

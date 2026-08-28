@@ -1,0 +1,118 @@
+<view class="page">
+  <view class="app-header">
+    <view>
+      <view class="app-title">热量账本</view>
+      <view class="muted app-sub">{{dateText}}</view>
+    </view>
+    <view class="badge badge-proto">行情</view>
+  </view>
+
+  <view class="card summary" wx:if="{{summary}}">
+    <view class="summary-top">
+      <view>
+        <view class="muted label">今日大盘净值</view>
+        <view class="net-line">
+          <text class="net-big {{netClass}}">{{netText}}</text>
+          <text class="muted">kcal</text>
+        </view>
+      </view>
+      <view class="goal-side">
+        <view class="badge {{statusClass}}">{{statusText}}</view>
+        <view class="muted goal-text">{{goalText}}</view>
+        <view class="streak">🔥 连续达标 {{summary.streak}} 天</view>
+      </view>
+    </view>
+    <view class="meter">
+      <view class="meter-bar {{netClass}}" style="width: {{meterWidth}}%"></view>
+    </view>
+    <view class="summary-stats">
+      <text>摄入 <text class="num">{{summary.intake}}</text></text>
+      <text>运动 <text class="num">{{summary.exercise}}</text></text>
+      <text>基础代谢 <text class="num">{{summary.bmr}}</text></text>
+    </view>
+  </view>
+
+  <view class="board-head">
+    <text class="board-title">板块行情</text>
+    <view class="seg">
+      <view class="seg-item {{viewMode === 'list' ? 'seg-on' : ''}}" data-mode="list" bindtap="switchView">列表</view>
+      <view class="seg-item {{viewMode === 'chart' ? 'seg-on' : ''}}" data-mode="chart" bindtap="switchView">图表</view>
+    </view>
+  </view>
+
+  <view class="board" wx:if="{{viewMode === 'list'}}">
+    <view
+      class="cell {{item.type === 'in' ? 'cell-up' : 'cell-down'}}"
+      wx:for="{{sectors}}"
+      wx:key="sectorId"
+      data-id="{{item.sectorId}}"
+      data-type="{{item.type}}"
+      bindtap="onSectorTap"
+    >
+      <view class="cell-name">{{item.name}}</view>
+      <view class="cell-val {{item.type === 'in' ? 'up' : 'down'}}">{{item.valueText}}</view>
+      <view class="cell-sub">{{item.countText}}</view>
+    </view>
+    <view class="empty" wx:if="{{!sectors.length}}">今天还没有记录，先记一笔吧</view>
+  </view>
+
+  <view class="map" wx:if="{{viewMode === 'chart'}}">
+    <view
+      wx:for="{{tiles}}"
+      wx:key="sectorId"
+      class="map-tile {{item.cls}}"
+      style="left: {{item.x}}%; top: {{item.y}}%; width: {{item.w}}%; height: {{item.h}}%;"
+      data-id="{{item.sectorId}}"
+      data-type="{{item.type}}"
+      hover-class="map-hover"
+      bindtap="onSectorTap"
+    >
+      <view class="map-name" wx:if="{{item.showName}}">{{item.name}}</view>
+      <view class="map-val" wx:if="{{item.showVal}}">{{item.valueText}}</view>
+    </view>
+    <view class="empty" wx:if="{{!tiles.length}}">今天还没有记录，先记一笔吧</view>
+  </view>
+  <view class="map-legend" wx:if="{{viewMode === 'chart' && tiles.length}}">
+    <text class="legend-dot legend-red"></text><text>摄入</text>
+    <text class="legend-dot legend-green"></text><text>消耗</text>
+    <text class="legend-note">色块越大 ≈ 热量越多，小模块保底显示</text>
+  </view>
+
+  <view class="card">
+    <view class="card-title">板块能量榜</view>
+    <view class="rank-row" wx:for="{{rank}}" wx:key="index">
+      <text class="rank-no">{{item.rank}}</text>
+      <text class="rank-name">{{item.name}}</text>
+      <view class="rank-track">
+        <view class="rank-bar {{item.cls}}" style="width: {{item.width}}%"></view>
+      </view>
+      <text class="rank-val {{item.cls}}">{{item.text}}</text>
+    </view>
+    <view class="empty" wx:if="{{!rank.length}}">今天还没有记录，先记一笔吧</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">今日成交明细</view>
+    <view class="record-row" wx:for="{{records}}" wx:key="id">
+      <text class="rec-time">{{item.timeText}}</text>
+      <text class="rec-name">{{item.name}}<text class="tag" wx:if="{{item.sectorName}}">{{item.sectorName}}</text></text>
+      <text class="rec-kcal {{item.cls}}">{{item.kcalText}}</text>
+      <text class="rec-del" data-id="{{item.id}}" bindtap="onDeleteRecord">✕</text>
+    </view>
+    <view class="empty" wx:if="{{!records.length}}">今日暂无记录，点下方「＋ 记一笔」开始</view>
+  </view>
+
+  <view
+    wx:if="{{fabVisible}}"
+    class="fab"
+    style="transform: translate({{fabDx}}px, {{fabDy}}px);"
+    catchtouchstart="onFabTouchStart"
+    catchtouchmove="onFabTouchMove"
+    catchtouchend="onFabTouchEnd"
+    catchtouchcancel="onFabTouchEnd"
+  >
+    <view class="fab-text" data-action="record">＋ 记一笔</view>
+    <view class="fab-hide" data-action="hide">✕</view>
+  </view>
+  <view wx:else class="fab-restore" style="transform: translate({{fabDx}}px, {{fabDy}}px);" bindtap="showFab">−</view>
+</view>

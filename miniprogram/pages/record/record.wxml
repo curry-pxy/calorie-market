@@ -1,0 +1,32 @@
+<view class="page">
+  <view class="app-title">快速记账</view>
+
+  <scroll-view scroll-x class="chip-row" enable-flex="true">
+    <view
+      class="chip {{item.id === activeId ? 'active' : ''}}"
+      wx:for="{{sectors}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="onChipTap"
+    >{{item.name}}</view>
+  </scroll-view>
+
+  <view class="quick-grid">
+    <view
+      class="quick"
+      wx:for="{{quickItems}}"
+      wx:key="index"
+      data-name="{{item[0]}}"
+      data-kcal="{{item[1]}}"
+      data-qty="{{item[2]}}"
+      bindtap="onQuickTap"
+    >
+      <view class="quick-name">{{item[0]}}</view>
+      <view class="quick-k">{{itemSign}}{{item[1]}} kcal · {{item[2]}}</view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{!quickItems.length}}">该板块暂无常用项，点下方自定义输入</view>
+
+  <view class="btn-primary custom-btn" bindtap="goCustom">✍️ 自定义输入…</view>
+</view>

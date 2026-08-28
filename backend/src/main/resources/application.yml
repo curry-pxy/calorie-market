@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: calorie-market
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/calorie_market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:}
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+wx:
+  # AppID 已配置；AppSecret 通过环境变量 WX_SECRET 传入
+  # 仅当 AppID 和 AppSecret 都配置时才请求微信服务器，否则走本地开发模式
+  appid: ${WX_APPID:wxe37e739e2b612ca3}
+  secret: ${WX_SECRET:}
+
+logging:
+  level:
+    com.calorie.market.mapper: debug

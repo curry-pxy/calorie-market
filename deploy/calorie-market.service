@@ -1,0 +1,13 @@
+[Unit]
+Description=Calorie Market Backend
+After=network.target mysql.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/calorie-market.env
+ExecStart=/usr/bin/java -jar /opt/calorie-market/calorie-market-0.1.0.jar
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

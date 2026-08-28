@@ -1,0 +1,79 @@
+page {
+  background: #0a0e14;
+  color: #e8edf6;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+}
+
+.card {
+  background: #131a28;
+  border: 1px solid #222c3f;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 13px;
+  color: #8b96ab;
+  margin-bottom: 10px;
+}
+
+.up { color: #f23645; }
+.down { color: #0bbf6b; }
+.muted { color: #8b96ab; }
+
+.chip {
+  background: #0e1420;
+  border: 1px solid #222c3f;
+  color: #8b96ab;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  margin: 0 8px 8px 0;
+}
+
+.chip.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input {
+  background: #0e1420;
+  border: 1px solid #222c3f;
+  border-radius: 9px;
+  color: #e8edf6;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-label {
+  font-size: 11px;
+  color: #8b96ab;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.empty {
+  color: #5f6a7e;
+  font-size: 12px;
+  text-align: center;
+  padding: 16px 0;
+}

@@ -1,0 +1,50 @@
+.page {
+  padding: 12px;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.chip-row {
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+
+.chip {
+  display: inline-block;
+}
+
+.quick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.quick {
+  width: 48.5%;
+  background: #0e1420;
+  border: 1px solid #222c3f;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.quick-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.quick-k {
+  font-size: 12px;
+  color: #8b96ab;
+  margin-top: 4px;
+}
+
+.custom-btn {
+  margin-top: 12px;
+}

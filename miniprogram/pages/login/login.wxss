@@ -1,0 +1,92 @@
+.page {
+  padding: 24px 20px 40px;
+}
+
+.hero {
+  text-align: center;
+  padding: 44px 0 30px;
+}
+
+.logo {
+  font-size: 46px;
+  line-height: 1;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+.sub {
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.wx-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #2eb872, #1f9d5f);
+  color: #ffffff;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.wx-icon {
+  font-size: 16px;
+}
+
+.or-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.or-line {
+  flex: 1;
+  height: 1px;
+  background: #222c3f;
+}
+
+.or-text {
+  font-size: 12px;
+}
+
+.seg {
+  display: flex;
+  background: #0e1420;
+  border: 1px solid #222c3f;
+  border-radius: 9px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.seg-item {
+  flex: 1;
+  font-size: 14px;
+  color: #8b96ab;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.seg-on {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.form-item {
+  margin-bottom: 12px;
+}
+
+.hint {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 12px;
+}

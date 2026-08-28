@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.calorie.market.mapper.UserMapper">
+
+    <select id="selectAllIds" resultType="long">
+        select id from t_user order by id
+    </select>
+
+    <resultMap id="userMap" type="com.calorie.market.domain.User">
+        <id column="id" property="id"/>
+        <result column="openid" property="openid"/>
+        <result column="phone" property="phone"/>
+        <result column="nickname" property="nickname"/>
+        <result column="gender" property="gender"/>
+        <result column="age" property="age"/>
+        <result column="height" property="height"/>
+        <result column="weight" property="weight"/>
+        <result column="target" property="target"/>
+        <result column="bmr" property="bmr"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <resultMap id="userAuthMap" type="com.calorie.market.domain.User" extends="userMap">
+        <result column="password" property="password"/>
+    </resultMap>
+
+    <select id="selectByOpenid" resultMap="userMap">
+        select id, openid, phone, nickname, gender, age, height, weight, target, bmr, created_at, updated_at
+        from t_user
+        where openid = #{openid}
+        limit 1
+    </select>
+
+    <select id="selectByPhone" resultMap="userAuthMap">
+        select id, openid, phone, password, nickname, gender, age, height, weight, target, bmr, created_at, updated_at
+        from t_user
+        where phone = #{phone}
+        limit 1
+    </select>
+
+    <select id="selectById" resultMap="userMap">
+        select id, openid, phone, nickname, gender, age, height, weight, target, bmr, created_at, updated_at
+        from t_user
+        where id = #{id}
+        limit 1
+    </select>
+
+    <insert id="insert" parameterType="com.calorie.market.domain.User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user (openid, phone, password, nickname, gender, age, height, weight, target, bmr, created_at, updated_at)
+        values (#{openid}, #{phone}, #{password}, #{nickname}, #{gender}, #{age}, #{height}, #{weight}, #{target}, #{bmr}, now(), now())
+    </insert>
+
+    <update id="updateProfile" parameterType="com.calorie.market.domain.User">
+        update t_user
+        set gender = #{gender},
+            age = #{age},
+            height = #{height},
+            weight = #{weight},
+            target = #{target},
+            bmr = #{bmr},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from t_user where id = #{id}
+    </delete>
+</mapper>

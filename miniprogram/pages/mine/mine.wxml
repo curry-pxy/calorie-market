@@ -1,0 +1,113 @@
+<view class="page">
+  <view class="card profile-card" bindtap="openProfile">
+    <view class="profile-row">
+      <view class="profile-icon">👤</view>
+      <view class="profile-info">
+        <view class="profile-name">{{genderList[genderIndex]}} · {{age || '-'}}岁</view>
+        <view class="muted profile-sub">身高 {{height || '-'}}cm · 体重 {{weight || '-'}}kg · 目标 {{target || '-'}}kcal</view>
+      </view>
+      <view class="profile-arrow">›</view>
+    </view>
+  </view>
+
+  <view class="card bmr-card">
+    <view class="card-title">基础代谢（自动估算）</view>
+    <view class="bmr-big">{{bmr}} kcal</view>
+    <view class="muted bmr-note">按 Mifflin-St Jeor 公式估算，每天自动扣除，相当于"绿色大盘"的底仓。</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">本周战绩</view>
+    <view class="stat-grid">
+      <view class="st">
+        <text class="st-label">达标天数</text>
+        <text class="st-num ok">{{weekly.okDays}}/7</text>
+      </view>
+      <view class="st">
+        <text class="st-label">本周赤字</text>
+        <text class="st-num">{{weekly.sum}}</text>
+      </view>
+      <view class="st">
+        <text class="st-label">体重变化</text>
+        <text class="st-num {{weekly.weightCls}}">{{weekly.weightText}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">体重记录</view>
+    <view class="form-row">
+      <view class="form-item">
+        <text class="form-label">体重 (kg)</text>
+        <input class="input" type="digit" placeholder="如 63.0" value="{{wKg}}" bindinput="onWKg" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">时段</text>
+        <picker range="{{tagList}}" value="{{tagIndex}}" bindchange="onTag">
+          <view class="input picker">{{tagList[tagIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="btn-primary" bindtap="saveWeight">记录体重</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">自定义板块</view>
+    <view class="form-row">
+      <view class="form-item wide">
+        <text class="form-label">板块名</text>
+        <input class="input" placeholder="如 夜宵 / 爬楼梯" value="{{sectorName}}" bindinput="onSectorName" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">类型</text>
+        <picker range="{{sectorTypeList}}" value="{{sectorTypeIndex}}" bindchange="onSectorType">
+          <view class="input picker">{{sectorTypeList[sectorTypeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="btn-primary" bindtap="saveSector">添加板块</view>
+    <view class="custom-row" wx:for="{{customSectors}}" wx:key="id">
+      <text class="cn">{{item.name}}</text>
+      <text class="ct">{{item.typeText}}</text>
+      <text class="cx" data-id="{{item.id}}" bindtap="deleteSector">✕</text>
+    </view>
+    <view class="empty" wx:if="{{!customSectors.length}}">还没有自定义板块</view>
+  </view>
+
+  <view class="mask" wx:if="{{profileOpen}}" bindtap="closeProfile"></view>
+  <view class="sheet" wx:if="{{profileOpen}}">
+    <view class="sheet-title">个人信息</view>
+    <view class="form-row">
+      <view class="form-item sheet-col">
+        <text class="form-label">性别</text>
+        <picker range="{{genderList}}" value="{{genderIndex}}" bindchange="onGender">
+          <view class="input picker">{{genderList[genderIndex]}}</view>
+        </picker>
+      </view>
+      <view class="form-item sheet-col">
+        <text class="form-label">年龄</text>
+        <input class="input" type="number" value="{{age}}" bindinput="onAge" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-item sheet-col">
+        <text class="form-label">身高 (cm)</text>
+        <input class="input" type="number" value="{{height}}" bindinput="onHeight" />
+      </view>
+      <view class="form-item sheet-col">
+        <text class="form-label">体重 (kg)</text>
+        <input class="input" type="digit" value="{{weight}}" bindinput="onWeight" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-item">
+        <text class="form-label">每日目标赤字 (kcal)</text>
+        <input class="input" type="number" value="{{target}}" bindinput="onTarget" />
+      </view>
+    </view>
+    <view class="sheet-actions">
+      <view class="btn-ghost" bindtap="closeProfile">取消</view>
+      <view class="btn-primary sheet-save" bindtap="saveProfile">保存</view>
+    </view>
+  </view>
+</view>

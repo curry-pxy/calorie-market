@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.calorie.market.mapper.RecordMapper">
+
+    <resultMap id="recordMap" type="com.calorie.market.domain.Record">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="sector_id" property="sectorId"/>
+        <result column="sector_name" property="sectorName"/>
+        <result column="sector_type" property="sectorType"/>
+        <result column="record_date" property="recordDate"/>
+        <result column="record_time" property="recordTime"/>
+        <result column="name" property="name"/>
+        <result column="kcal" property="kcal"/>
+        <result column="qty" property="qty"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <select id="selectByUserAndDate" resultMap="recordMap">
+        select r.id, r.user_id, r.sector_id, r.record_date, r.record_time, r.name, r.kcal, r.qty, r.created_at,
+               s.name as sector_name, s.type as sector_type
+        from t_record r
+        left join t_sector s on r.sector_id = s.id
+        where r.user_id = #{userId} and r.record_date = #{date}
+        order by r.record_time asc, r.id asc
+    </select>
+
+    <select id="selectByUserRange" resultMap="recordMap">
+        select r.id, r.user_id, r.sector_id, r.record_date, r.record_time, r.name, r.kcal, r.qty, r.created_at,
+               s.name as sector_name, s.type as sector_type
+        from t_record r
+        left join t_sector s on r.sector_id = s.id
+        where r.user_id = #{userId} and r.record_date between #{start} and #{end}
+        order by r.record_date asc, r.record_time asc, r.id asc
+    </select>
+
+    <insert id="insert" parameterType="com.calorie.market.domain.Record" useGeneratedKeys="true" keyProperty="id">
+        insert into t_record (user_id, sector_id, record_date, record_time, name, kcal, qty, created_at)
+        values (#{userId}, #{sectorId}, #{recordDate}, #{recordTime}, #{name}, #{kcal}, #{qty}, now())
+    </insert>
+
+    <delete id="deleteByIdAndUser">
+        delete from t_record where id = #{id} and user_id = #{userId}
+    </delete>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.calorie.market.mapper.SectorMapper">
+
+    <resultMap id="sectorMap" type="com.calorie.market.domain.Sector">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="custom" property="custom"/>
+        <result column="deleted" property="deleted"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <select id="selectByUser" resultMap="sectorMap">
+        select id, user_id, name, type, custom, deleted, sort_order, created_at
+        from t_sector
+        where user_id = #{userId} and deleted = 0
+        order by sort_order asc, id asc
+    </select>
+
+    <select id="selectByIdAndUser" resultMap="sectorMap">
+        select id, user_id, name, type, custom, deleted, sort_order, created_at
+        from t_sector
+        where id = #{id} and user_id = #{userId} and deleted = 0
+        limit 1
+    </select>
+
+    <insert id="insert" parameterType="com.calorie.market.domain.Sector" useGeneratedKeys="true" keyProperty="id">
+        insert into t_sector (user_id, name, type, custom, deleted, sort_order, created_at)
+        values (#{userId}, #{name}, #{type}, #{custom}, 0, #{sortOrder}, now())
+    </insert>
+
+    <insert id="insertBatch">
+        insert into t_sector (user_id, name, type, custom, deleted, sort_order, created_at)
+        values
+        <foreach collection="list" item="s" separator=",">
+            (#{s.userId}, #{s.name}, #{s.type}, #{s.custom}, 0, #{s.sortOrder}, now())
+        </foreach>
+    </insert>
+
+    <update id="softDelete">
+        update t_sector
+        set deleted = 1
+        where id = #{id} and user_id = #{userId}
+    </update>
+</mapper>

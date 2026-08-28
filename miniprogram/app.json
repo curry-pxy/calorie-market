@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/dashboard/dashboard",
+    "pages/record/record",
+    "pages/record-add/record-add",
+    "pages/history/history",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#0a0e14",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "减肥行情",
+    "backgroundColor": "#0a0e14"
+  },
+  "tabBar": {
+    "color": "#8b96ab",
+    "selectedColor": "#3b82f6",
+    "backgroundColor": "#0d1320",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/dashboard/dashboard",
+        "text": "行情"
+      },
+      {
+        "pagePath": "pages/record/record",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "历史"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
